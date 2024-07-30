@@ -1,0 +1,25 @@
+.navbar-nav .nav-link {
+    color: #495057;
+  }
+.navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
+    color: #28a745;
+}
+.logo-container {
+  width: 90px; /* Adjust this value to make the logo larger or smaller */
+  height: 90px; /* Should be the same as width to maintain a square container */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.logo-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* This ensures the image keeps its aspect ratio */
+}
+@media (max-width: 768px) {
+  .logo-container {
+    width: 40px; /* Smaller on mobile devices */
+    height: 40px;
+  }
+}
