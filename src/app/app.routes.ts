@@ -4,14 +4,18 @@ import { LayoutComponent } from './views/layout/layout.component';
 import { ClientsComponent } from './views/clients/clients.component';
 import { CreateOrderComponent } from './views/create-order/create-order.component';
 import { OrdersComponent } from './views/orders/orders.component';
+import { AuthGuard } from '@angular/fire/auth-guard';
+import { LoginComponent } from './views/login/login.component';
 
 
 export const routes: Routes = [
+  { path: 'login', component: LoginComponent },
   {
     path: '',
     component: LayoutComponent,
+    canActivate: [AuthGuard],
     children: [
-      { path: '', redirectTo: 'create-order', pathMatch: 'full' },
+      { path: '', redirectTo: 'add-product', pathMatch: 'full' },
       { 
         path: 'add-product', 
         component: ProductAddComponent,

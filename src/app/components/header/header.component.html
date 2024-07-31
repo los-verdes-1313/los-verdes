@@ -21,13 +21,13 @@
           <a class="nav-link" routerLink="/clients" routerLinkActive="active">Clientes</a>
         </li>
       </ul>
-      <ul class="navbar-nav">
+      <ul class="navbar-nav ms-auto">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <div class="nav-link" (click)="toggleDropdown()" #dropdownToggle>
             <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#" (click)="logout()">Cerrar Sesión</a></li>
+          </div>
+          <ul class="dropdown-menu dropdown-menu-end" [class.show]="isDropdownOpen">
+            <li><button class="dropdown-item" (click)="logout()">Cerrar Sesión</button></li>
           </ul>
         </li>
       </ul>
