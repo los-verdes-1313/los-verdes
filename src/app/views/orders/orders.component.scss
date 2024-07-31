@@ -1,0 +1,51 @@
+.list-group-item {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #f8f9fa;  // Un gris muy claro para el hover
+    }
+  
+    &.active {
+      background-color: #007bff;
+      color: white;
+  
+      &:hover {
+        background-color: #0056b3;  // Un azul más oscuro para el hover cuando está activo
+      }
+    }
+  }
+  
+  // Estilos adicionales para mejorar la apariencia general
+  .card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+  }
+  
+  .card-title {
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .table {
+    th {
+      background-color: #f8f9fa;
+    }
+  }
+  
+  .btn-sm {
+    font-size: 0.875rem;
+  }
+  
+  // Estilo para el input de cantidad
+  input[type="number"] {
+    &.form-control-sm {
+      padding: 0.25rem 0.5rem;
+    }
+  }
+  
+  // Mejora la apariencia de los badges
+  .badge {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }

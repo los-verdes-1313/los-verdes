@@ -1,24 +1,48 @@
+// src/app/interfaces/order.ts
+
 export interface OrderItem {
-    productId: string;
-    quantity: number;
-    priceAtOrder: number;
+  productId: string;
+  name: string;
+  unit: string;
+  quantity: number;
+  priceAtOrder: number;
 }
-  
-  // src/app/shared/models/customer-order.model.ts
+
 export interface CustomerOrder {
-    id?: string;
-    clientId: string;
-    items: OrderItem[];
-    totalAmount: number;
-    totalPrice: number;
-    date: Date;
+  id?: string;
+  clientName: string;
+  items: OrderItem[];
+  totalAmount: number;
+  totalPrice: number;
+  date: Date;
 }
-  
-  // src/app/shared/models/purchase-order.model.ts
+
 export interface PurchaseOrder {
-    id?: string;
-    customerOrders: CustomerOrder[]; // Array of CustomerOrder IDs
-    totalAmount: number;
-    totalPrice: number;
-    date: Date;
+  id?: string;
+  customerOrders: CustomerOrder[];
+  totalAmount: number;
+  totalPrice: number;
+  date: Date;
+}
+
+export interface ConsolidatedProduct {
+  productId: string;
+  name: string;
+  unit: string;
+  quantity: number;
+  totalPrice: number;
+  unitPrice: number;
+}
+
+export interface TotalizedPurchaseOrder {
+  id?: string;
+  consolidatedProducts: ConsolidatedProduct[];
+  totalAmount: number;
+  totalPrice: number;
+  date: Date;
+}
+
+export interface PurchaseOrderWithTotals {
+  original: PurchaseOrder;
+  totalized: TotalizedPurchaseOrder;
 }

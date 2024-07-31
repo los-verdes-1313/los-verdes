@@ -1,59 +1,50 @@
 <div class="container-fluid mt-4">
-    <h2 class="mb-4">Creación de Órdenes</h2>
-  
-    <div class="row">
-      <!-- Formulario para crear un nuevo pedido -->
-      <div class="col-md-6">
-        <div class="card mb-4">
-          <div class="card-body">
-            <h3 class="card-title">Nuevo Pedido</h3>
-            <form [formGroup]="orderForm" (ngSubmit)="addProductToOrder()">
-              <div class="mb-3">
-                <label for="clientId" class="form-label">Cliente</label>
-                <select class="form-select" id="clientId" formControlName="clientId">
-                  <option value="">Seleccione un cliente</option>
-                  @for (client of clients; track client.id) {
-                    <option [value]="client.id">{{ client.name }}</option>
-                  }
-                </select>
-              </div>
-              
-              <!-- Buscador de productos -->
-              <div class="mb-3">
-                <label for="productSearch" class="form-label">Buscar Producto</label>
-                <input type="text" class="form-control" id="productSearch" 
-                       #searchInput (input)="searchTerm = searchInput.value; applyFilter()" 
-                       placeholder="Buscar producto">
-              </div>
-  
-              <!-- Lista de productos filtrados -->
-              <div class="mb-3">
-                <ul class="list-group">
-                  @for (product of filteredProducts; track product.id) {
-                    <li class="list-group-item d-flex justify-content-between align-items-center" 
-                        (click)="selectProduct(product)" 
-                        [class.active]="selectedProduct?.id === product.id"
-                        style="cursor: pointer;">
-                      <div>
-                        <h6>{{ product.name }}</h6>
-                        <small>Precio: {{ product.price | currency }}</small>
-                        <small>Unidad: {{ product.unit }}</small>
-                      </div>
-                      <span class="badge bg-primary rounded-pill">Seleccionar</span>
-                    </li>
-                  }
-                </ul>
-              </div>
-  
-              <div class="mb-3">
-                <label for="quantity" class="form-label">Cantidad</label>
-                <input type="number" class="form-control" id="quantity" formControlName="quantity" min="1">
-              </div>
-              <button type="submit" class="btn btn-primary" [disabled]="orderForm.invalid || !selectedProduct">Agregar Producto</button>
-            </form>
-          </div>
+  <h2 class="mb-4">Creación de Órdenes</h2>
+
+  <div class="row">
+    <!-- Formulario para crear un nuevo pedido -->
+    <div class="col-md-6">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="card-title">Nuevo Pedido</h3>
+          <form [formGroup]="orderForm" (ngSubmit)="addProductToOrder()">
+            <div class="mb-3">
+              <label for="clientId" class="form-label">Cliente</label>
+              <select class="form-select" id="clientId" formControlName="clientId">
+                <option value="">Seleccione un cliente</option>
+                @for (client of clients; track client.id) {
+                  <option [value]="client.id">{{ client.name }}</option>
+                }
+              </select>
+            </div>
+            
+            <!-- Buscador de productos con dropdown -->
+            <div class="mb-3">
+              <label for="productId" class="form-label">Producto</label>
+              <ng-select [items]="products"
+                         bindLabel="name"
+                         bindValue="id"
+                         [addTag]="false"
+                         placeholder="Buscar producto"
+                         formControlName="productId">
+                <ng-template ng-label-tmp let-item="item">
+                  {{ item.name }} - {{ item.price | currency }} - {{ item.unit }}
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item">
+                  {{ item.name }} - {{ item.price | currency }} - {{ item.unit }}
+                </ng-template>
+              </ng-select>
+            </div>
+
+            <div class="mb-3">
+              <label for="quantity" class="form-label">Cantidad</label>
+              <input type="number" class="form-control" id="quantity" formControlName="quantity" min="1">
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="orderForm.invalid">Agregar Producto</button>
+          </form>
         </div>
       </div>
+    </div>
   
       <!-- Vista previa del pedido actual -->
       <div class="col-md-6">
@@ -61,13 +52,13 @@
           <div class="card mb-4">
             <div class="card-body">
               <h3 class="card-title">Pedido Actual</h3>
-              <p>Cliente: {{ getClientName(currentCustomerOrder.clientId) }}</p>
+              <p>Cliente: {{ currentCustomerOrder.clientName }}</p>
               <ul class="list-group">
                 @for (item of currentCustomerOrder.items; track item.productId) {
                   <li class="list-group-item">
                     @if (getProductDetails(item.productId); as product) {
                       <h6>{{ product.name }}</h6>
-                      <p>Cantidad: {{ item.quantity }}</p>
+                      <p>Cantidad: {{ item.quantity }} ({{ item.unit }})</p>
                       <p>Precio unitario: {{ item.priceAtOrder | currency }}</p>
                       <p>Subtotal: {{ item.quantity * item.priceAtOrder | currency }}</p>
                     }
@@ -90,14 +81,13 @@
           <ul class="list-group">
             @for (order of customerOrders; track order.id) {
               <li class="list-group-item">
-                <h6>Cliente: {{ getClientName(order.clientId) }}</h6>
-                <p>Fecha: {{ order.date | date:'short' }}</p>
+                <h6>Cliente: {{ order.clientName }}</h6>
                 <p>Total: {{ order.totalPrice | currency }}</p>
                 <ul>
                   @for (item of order.items; track item.productId) {
                     <li>
                       @if (getProductDetails(item.productId); as product) {
-                        {{ product.name }} - Cantidad: {{ item.quantity }} - Subtotal: {{ item.quantity * item.priceAtOrder | currency }}
+                        {{ product.name }} - Cantidad: {{ item.quantity }} ({{ item.unit }}) - Subtotal: {{ item.quantity * item.priceAtOrder | currency }}
                       }
                     </li>
                   }
