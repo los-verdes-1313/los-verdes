@@ -26,13 +26,8 @@
               }
             </div>
             <div class="mb-3">
-              <label for="productUnit" class="form-label">Unidad</label>
-              <select class="form-select" id="productUnit" formControlName="unit">
-                <option value="">Seleccione una unidad</option>
-                <option value="kg">Kilogramo (kg)</option>
-                <option value="unit">Unidad</option>
-                <option value="bunch">Manojo</option>
-              </select>
+              <label for="unit" class="form-label">Unidad</label>
+              <input type="text" class="form-control" id="unit" formControlName="unit" placeholder="Ingrese la unidad">
               @if (productForm.get('unit')?.invalid && (productForm.get('unit')?.dirty || productForm.get('unit')?.touched)) {
                 <div class="text-danger">
                   La unidad es requerida.
@@ -63,11 +58,7 @@
                     @if (editingProduct && editingProduct.id === product.id) {
                       <input [(ngModel)]="editingProduct.name" class="form-control mb-2" placeholder="Nombre del producto">
                       <input [(ngModel)]="editingProduct.price" type="number" class="form-control mb-2" placeholder="Precio">
-                      <select [(ngModel)]="editingProduct.unit" class="form-select mb-2">
-                        <option value="kg">Kilogramo (kg)</option>
-                        <option value="unit">Unidad</option>
-                        <option value="bunch">Manojo</option>
-                      </select>
+                      <input [(ngModel)]="editingProduct.unit" class="form-control mb-2" placeholder="Unidad">
                       <button class="btn btn-sm btn-success me-2" (click)="saveEdit(editingProduct)">Guardar</button>
                       <button class="btn btn-sm btn-secondary" (click)="cancelEdit()">Cancelar</button>
                     } @else {
