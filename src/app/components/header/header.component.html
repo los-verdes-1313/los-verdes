@@ -1,36 +1,53 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand d-flex align-items-center" href="#">
-      <img src="assets/logo.png" alt="Los Verdes Logo" height="90" class="d-inline-block align-top">
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/create-order" routerLinkActive="active">Crear Pedidos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/orders" routerLinkActive="active">Órdenes de Compra</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/add-product" routerLinkActive="active">Productos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/clients" routerLinkActive="active">Clientes</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item dropdown">
-          <div class="nav-link" (click)="toggleDropdown()" #dropdownToggle>
-            <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
-          </div>
-          <ul class="dropdown-menu dropdown-menu-end" [class.show]="isDropdownOpen">
-            <li><button class="dropdown-item" (click)="logout()">Cerrar Sesión</button></li>
-          </ul>
-        </li>
-      </ul>
+<header>
+  <!-- Sidebar for mobile -->
+  <div class="sidebar" [class.active]="isSidebarOpen">
+    <div class="sidebar-header">
+      <img src="assets/logo.png" alt="Los Verdes Logo" class="sidebar-logo">
+      <button class="close-sidebar" (click)="toggleSidebar()">
+        <i class="bi bi-x"></i>
+      </button>
+    </div>
+    <nav class="sidebar-nav">
+      @for (item of navItems; track item.route) {
+        <a [routerLink]="item.route" routerLinkActive="active" (click)="toggleSidebar()">{{item.label}}</a>
+      }
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#" (click)="logout(); toggleSidebar()">Cerrar Sesión</a>
     </div>
   </div>
-</nav>
+
+  <!-- Overlay -->
+  <div class="sidebar-overlay" [class.active]="isSidebarOpen" (click)="toggleSidebar()"></div>
+
+  <!-- Top navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <div class="logo-container">
+          <img src="assets/logo.png" alt="Los Verdes Logo" class="img-fluid">
+        </div>
+      </a>
+      <button class="navbar-toggler" type="button" (click)="toggleSidebar()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          @for (item of navItems; track item.route) {
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="item.route" routerLinkActive="active">{{item.label}}</a>
+            </li>
+          }
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" (click)="toggleDropdown()" #dropdownToggle>
+              <i class="bi bi-person-circle"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" [class.show]="isDropdownOpen" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" (click)="logout()">Cerrar Sesión</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
