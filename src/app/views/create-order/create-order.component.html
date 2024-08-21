@@ -1,102 +1,94 @@
-<div class="container-fluid mt-4">
+<div class="container-fluid mt-4 create-order-container">
   <h2 class="mb-4">Creación de Órdenes</h2>
 
   <div class="row">
-    <!-- Formulario para crear un nuevo pedido -->
-    <div class="col-md-6">
-      <div class="card mb-4">
+    <!-- Formulario de nuevo pedido -->
+    <div class="col-md-6 mb-4">
+      <div class="card">
         <div class="card-body">
           <h3 class="card-title">Nuevo Pedido</h3>
           <form [formGroup]="orderForm" (ngSubmit)="addProductToOrder()">
             <div class="mb-3">
               <label for="clientId" class="form-label">Cliente</label>
-              <select class="form-select" id="clientId" formControlName="clientId">
+              <select formControlName="clientId" class="form-select" id="clientId">
                 <option value="">Seleccione un cliente</option>
-                @for (client of clients; track client.id) {
-                  <option [value]="client.id">{{ client.name }}</option>
-                }
+                <option *ngFor="let client of clients" [value]="client.id">
+                  {{client.name}}
+                </option>
               </select>
             </div>
-            
-            <!-- Buscador de productos con dropdown -->
             <div class="mb-3">
               <label for="productId" class="form-label">Producto</label>
-              <ng-select [items]="products"
-                         bindLabel="name"
-                         bindValue="id"
-                         [addTag]="false"
-                         placeholder="Buscar producto"
-                         formControlName="productId">
-                <ng-template ng-label-tmp let-item="item">
-                  {{ item.name }} - {{ item.price | currency }} - {{ item.unit }}
-                </ng-template>
-                <ng-template ng-option-tmp let-item="item">
-                  {{ item.name }} - {{ item.price | currency }} - {{ item.unit }}
-                </ng-template>
-              </ng-select>
+              <select formControlName="productId" class="form-select" id="productId">
+                <option value="">Seleccione un producto</option>
+                <option *ngFor="let product of products" [value]="product.id">
+                  {{product.name}} - {{product.price | currency}} - {{product.unit}}
+                </option>
+              </select>
             </div>
-
             <div class="mb-3">
               <label for="quantity" class="form-label">Cantidad</label>
-              <input type="number" class="form-control" id="quantity" formControlName="quantity" min="1">
+              <input type="number" formControlName="quantity" class="form-control" id="quantity">
             </div>
-            <button type="submit" class="btn btn-primary" [disabled]="orderForm.invalid">Agregar Producto</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!orderForm.valid">
+              Agregar Producto
+            </button>
           </form>
         </div>
       </div>
     </div>
-  
-      <!-- Vista previa del pedido actual -->
-      <div class="col-md-6">
-        @if (currentCustomerOrder) {
-          <div class="card mb-4">
-            <div class="card-body">
-              <h3 class="card-title">Pedido Actual</h3>
-              <p>Cliente: {{ currentCustomerOrder.clientName }}</p>
-              <ul class="list-group">
-                @for (item of currentCustomerOrder.items; track item.productId) {
-                  <li class="list-group-item">
-                    @if (getProductDetails(item.productId); as product) {
-                      <h6>{{ product.name }}</h6>
-                      <p>Cantidad: {{ item.quantity }} ({{ item.unit }})</p>
-                      <p>Precio unitario: {{ item.priceAtOrder | currency }}</p>
-                      <p>Subtotal: {{ item.quantity * item.priceAtOrder | currency }}</p>
-                    }
-                  </li>
-                }
-              </ul>
-              <p class="mt-3">Total: {{ currentCustomerOrder.totalPrice | currency }}</p>
-              <button class="btn btn-success" (click)="closeCustomerOrder()">Cerrar Pedido</button>
-            </div>
+
+    <!-- Pedido actual y lista de pedidos -->
+    <div class="col-md-6">
+      <!-- Pedido Actual -->
+      <div class="card mb-4 current-order" *ngIf="currentCustomerOrder">
+        <div class="card-body">
+          <h3 class="card-title">Pedido Actual</h3>
+          <p><strong>Cliente:</strong> {{currentCustomerOrder.clientName}}</p>
+          <div class="table-responsive">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Cantidad</th>
+                  <th>Precio Unitario</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of currentCustomerOrder.items">
+                  <td>{{item.name}}</td>
+                  <td>{{item.quantity}} ({{item.unit}})</td>
+                  <td>{{item.priceAtOrder | currency}}</td>
+                  <td>{{item.quantity * item.priceAtOrder | currency}}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                  <td><strong>{{currentCustomerOrder.totalPrice | currency}}</strong></td>
+                </tr>
+              </tfoot>
+            </table>
           </div>
-        }
+          <button class="btn btn-success" (click)="closeCustomerOrder()">Cerrar Pedido</button>
+        </div>
       </div>
-    </div>
-  
-    <!-- Lista de pedidos para la orden de compra actual -->
-    @if (customerOrders.length > 0) {
-      <div class="card mb-4">
+
+      <!-- Lista de Pedidos para Orden de Compra -->
+      <div class="card order-list" *ngIf="customerOrders.length > 0">
         <div class="card-body">
           <h3 class="card-title">Pedidos para Orden de Compra</h3>
           <ul class="list-group">
-            @for (order of customerOrders; track order.id) {
-              <li class="list-group-item">
-                <h6>Cliente: {{ order.clientName }}</h6>
-                <p>Total: {{ order.totalPrice | currency }}</p>
-                <ul>
-                  @for (item of order.items; track item.productId) {
-                    <li>
-                      @if (getProductDetails(item.productId); as product) {
-                        {{ product.name }} - Cantidad: {{ item.quantity }} ({{ item.unit }}) - Subtotal: {{ item.quantity * item.priceAtOrder | currency }}
-                      }
-                    </li>
-                  }
-                </ul>
-              </li>
-            }
+            <li *ngFor="let order of customerOrders" class="list-group-item">
+              <h5 class="mb-1">Cliente: {{order.clientName}}</h5>
+              <p class="mb-1">Total: {{order.totalPrice | currency}}</p>
+              <small>Productos: {{order.items.length}}</small>
+            </li>
           </ul>
           <button class="btn btn-primary mt-3" (click)="createPurchaseOrder()">Crear Orden de Compra</button>
         </div>
       </div>
-    }
+    </div>
+  </div>
 </div>

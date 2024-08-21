@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -20,12 +20,24 @@ export class OrdersComponent implements OnInit {
   selectedPurchaseOrder: PurchaseOrder | null = null;
   selectedTotalizedOrder: TotalizedPurchaseOrder | null = null;
   isEditing: boolean = false;
-  showConsolidatedTab: boolean = true;  // Nueva propiedad para controlar las pestañas
+  showConsolidatedTab: boolean = true;
+  windowWidth: number;  // Nueva propiedad para controlar las pestañas
 
   constructor(
     private purchaseOrderService: PurchaseOrderService,
     private toastr: ToastrService
-  ) {}
+  ) {
+    this.windowWidth = window.innerWidth;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.windowWidth = event.target.innerWidth;
+  }
+
+  isDesktop(): boolean {
+    return this.windowWidth >= 768; // Consideramos desktop a partir de 768px
+  }
 
   ngOnInit() {
     this.loadPurchaseOrders();
@@ -49,14 +61,6 @@ export class OrdersComponent implements OnInit {
     this.selectedTotalizedOrder = this.purchaseOrderService.createTotalizedPurchaseOrder(order);
     this.isEditing = false;
     this.showConsolidatedTab = true;  // Mostrar la pestaña consolidada por defecto
-    console.log('Orden seleccionada:', this.selectedPurchaseOrder);
-    console.log('Orden totalizada:', this.selectedTotalizedOrder);
-    
-    if (!this.selectedPurchaseOrder.customerOrders || this.selectedPurchaseOrder.customerOrders.length === 0) {
-      console.warn('No se encontraron pedidos individuales para esta orden de compra.');
-    } else {
-      console.log('Pedidos individuales:', this.selectedPurchaseOrder.customerOrders);
-    }
   }
 
   switchTab(showConsolidated: boolean) {
@@ -216,4 +220,10 @@ export class OrdersComponent implements OnInit {
     }
     return 'Fecha no disponible';
   }
+  closeDetails() {
+    this.selectedPurchaseOrder = null;
+    this.selectedTotalizedOrder = null;
+  }
+
 }
+

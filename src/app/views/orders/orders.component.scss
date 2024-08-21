@@ -1,51 +1,70 @@
-.list-group-item {
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+.orders-container {
+  .order-list {
+    @include media-breakpoint-down(md) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .order-details {
+    @include media-breakpoint-down(md) {
+      margin-top: 1rem;
+    }
+  }
+
+  .list-group-item {
     cursor: pointer;
     transition: background-color 0.3s ease;
-  
+
     &:hover {
-      background-color: #f8f9fa;  // Un gris muy claro para el hover
+      background-color: $gray-100;
     }
-  
+
     &.active {
-      background-color: #007bff;
-      color: white;
-  
+      background-color: $primary;
+      border-color: $primary;
+
       &:hover {
-        background-color: #0056b3;  // Un azul más oscuro para el hover cuando está activo
+        background-color: darken($primary, 5%);
       }
     }
   }
-  
-  // Estilos adicionales para mejorar la apariencia general
+
   .card {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
     border: none;
-  }
-  
-  .card-title {
-    color: #333;
-    font-weight: bold;
-  }
-  
-  .table {
-    th {
-      background-color: #f8f9fa;
+    
+    @include media-breakpoint-down(sm) {
+      margin-bottom: 1rem;
     }
   }
-  
-  .btn-sm {
-    font-size: 0.875rem;
+
+  .table-responsive {
+    @include media-breakpoint-down(sm) {
+      font-size: 0.875rem;
+    }
   }
-  
-  // Estilo para el input de cantidad
-  input[type="number"] {
-    &.form-control-sm {
+
+  .btn-group-sm > .btn, .btn-sm {
+    @include media-breakpoint-down(sm) {
+      font-size: 0.75rem;
       padding: 0.25rem 0.5rem;
     }
   }
-  
-  // Mejora la apariencia de los badges
-  .badge {
-    font-size: 0.875rem;
-    font-weight: 600;
+
+  input[type="number"].form-control-sm {
+    @include media-breakpoint-down(sm) {
+      font-size: 0.875rem;
+      padding: 0.25rem 0.5rem;
+    }
   }
+
+  .badge {
+    @include media-breakpoint-down(sm) {
+      font-size: 0.75rem;
+    }
+  }
+}

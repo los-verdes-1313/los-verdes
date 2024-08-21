@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -25,6 +25,7 @@ export class CreateOrderComponent implements OnInit {
   currentCustomerOrder: CustomerOrder | null = null;
   orderForm: FormGroup;
   selectedProduct: Product | null = null;
+  windowWidth: number;
 
   constructor(
     private fb: FormBuilder,
@@ -39,6 +40,16 @@ export class CreateOrderComponent implements OnInit {
       productId: [null, Validators.required],
       quantity: [1, [Validators.required, Validators.min(1)]]
     });
+    this.windowWidth = window.innerWidth;
+  }
+  
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.windowWidth = event.target.innerWidth;
+  }
+
+  isDesktop(): boolean {
+    return this.windowWidth >= 768; // Consideramos desktop a partir de 768px
   }
 
   ngOnInit() {

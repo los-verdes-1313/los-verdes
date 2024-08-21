@@ -9,11 +9,11 @@ import { LoginComponent } from './views/login/login.component';
 
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+
   {
     path: '',
     component: LayoutComponent,
-    canActivate: [AuthGuard],
+    
     children: [
       { path: '', redirectTo: 'add-product', pathMatch: 'full' },
       { 
