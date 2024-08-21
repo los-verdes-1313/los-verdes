@@ -53,8 +53,8 @@ export class ProductAddComponent implements OnInit{
         this.products = products;
         this.applyFilter();
       },
-      () => {
-        this.toastr.error('Error al cargar el producto', 'Error');
+      (e) => {
+        this.toastr.error(e, 'Error');
       }
     );
   }
