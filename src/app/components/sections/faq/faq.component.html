@@ -1,0 +1,24 @@
+<section class="faq-section">
+    <div class="container">
+      <div class="faq-list">
+        <div class="title-container">
+            <h2><strong>Preguntas Frecuentes</strong></h2>
+          </div>
+        @for (item of faqItems; track item.question) {
+          <div class="faq-item">
+            <div class="question" (click)="toggleFaq(item)">
+              <span>{{item.question}}</span>
+              <div class="icon-wrapper">
+                <span class="plus" [class.hidden]="item.isOpen">+</span>
+                <span class="cross" [class.visible]="item.isOpen">×</span>
+              </div>
+            </div>
+            <div class="answer" [class.open]="item.isOpen">
+              <p>{{item.answer}}</p>
+            </div>
+            <div class="divider"></div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>

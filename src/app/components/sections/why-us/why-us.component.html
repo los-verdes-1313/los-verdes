@@ -1,0 +1,19 @@
+<section class="why-choose">
+    <div class="container">
+      <div class="title-container">
+        <img src="/logo-blur.png" alt="background logo" class="background-logo">
+        <h2>¿Por qué elegir <strong>SimpleApps</strong>?</h2>
+      </div>
+      
+      <div class="features">
+        <div class="feature-card" *ngFor="let feature of features">
+          <div class="icon-container">
+            <mat-icon>{{feature.icon}}</mat-icon>
+          </div>
+          <h3>{{ feature.title }}</h3>
+          <p>{{ feature.description }}</p>
+        </div>
+      </div>
+  
+    </div>
+  </section>

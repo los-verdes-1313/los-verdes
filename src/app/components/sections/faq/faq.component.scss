@@ -1,0 +1,177 @@
+// Variables
+$font-family: 'General Sans', sans-serif;
+$primary-color: #092F70;
+$background-light: #E6E9F0;
+$divider-color: #CCD0DB;
+$text-dark: #000000;
+$text-gray: #666666;
+
+// Breakpoints
+@mixin mobile {
+  @media (max-width: 576px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+// Transitions
+@mixin transition($property: all) {
+  transition: $property 0.3s ease;
+}
+
+// Common text styles
+@mixin text-style($size, $weight: 400) {
+  font-family: $font-family;
+  font-size: $size;
+  font-weight: $weight;
+}
+
+.faq-section {
+  padding: 60px 0;
+  background-color: white;
+  overflow-x: hidden; // Prevent horizontal scroll
+
+  @include mobile {
+    padding: 40px 0;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.faq-list {
+  background: $background-light;
+  border-radius: 20px;
+  padding: 40px;
+
+  @include tablet {
+    padding: 30px 20px;
+  }
+
+  @include mobile {
+    padding: 20px 15px;
+    border-radius: 15px;
+  }
+}
+
+.title-container {
+  margin-bottom: 40px;
+  
+  @include mobile {
+    margin-bottom: 30px;
+  }
+
+  h2 {
+    @include text-style(36px, 500);
+    color: $text-dark;
+
+    @include tablet {
+      font-size: 32px;
+    }
+
+    @include mobile {
+      font-size: 28px;
+    }
+  }
+}
+
+.faq-item {
+  .question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    cursor: pointer;
+    @include text-style(18px);
+    color: $text-dark;
+    gap: 20px; // Space between text and icon
+
+    @include mobile {
+      font-size: 16px;
+      padding: 15px 0;
+    }
+
+    .icon-wrapper {
+      position: relative;
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0; // Prevent icon from shrinking
+      user-select: none;
+      pointer-events: none;
+      
+      .plus, .cross {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        @include transition;
+        font-size: 24px;
+        color: $primary-color;
+
+        @include mobile {
+          font-size: 20px;
+        }
+      }
+
+      .plus {
+        opacity: 1;
+        
+        &.hidden {
+          opacity: 0;
+          transform: translate(-50%, -50%) rotate(180deg);
+        }
+      }
+
+      .cross {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(-180deg);
+        
+        &.visible {
+          opacity: 1;
+          transform: translate(-50%, -50%) rotate(0);
+        }
+      }
+    }
+  }
+
+  .answer {
+    max-height: 0;
+    overflow: hidden;
+    @include transition(max-height);
+
+    &.open {
+      max-height: 500px;
+    }
+
+    p {
+      padding: 0 0 20px 0;
+      color: $text-gray;
+      @include text-style(16px);
+      line-height: 1.5;
+
+      @include mobile {
+        font-size: 14px;
+        padding-bottom: 15px;
+      }
+    }
+  }
+
+  .divider {
+    height: 1px;
+    background-color: $divider-color;
+  }
+
+  &:last-child .divider {
+    display: none;
+  }
+}

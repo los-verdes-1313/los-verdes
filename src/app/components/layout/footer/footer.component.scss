@@ -1,0 +1,357 @@
+// Variables
+$font-family: 'General Sans', sans-serif;
+$background-gray: #e6e9f0;
+$card-color: #6679a2;
+$text-dark: #000000;
+$text-gray: #666666;
+$text-light: #ffffff;
+$accent-color: #FF6450;
+
+// Breakpoints
+@mixin mobile {
+  @media (max-width: 576px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+
+// Text styles
+@mixin text-style($size, $weight: 400) {
+  font-family: $font-family;
+  font-size: $size;
+  font-weight: $weight;
+  line-height: 1.5;
+}
+
+// Full width section
+@mixin full-width {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+// Container styles
+@mixin container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 120px;
+  width: 100%;
+  box-sizing: border-box;
+
+  @include laptop {
+    padding: 0 60px;
+  }
+
+  @include tablet {
+    padding: 0 30px;
+  }
+
+  @include mobile {
+    padding: 0 20px;
+  }
+}
+
+.footer {
+  @include full-width;
+  background-color: $background-gray;
+  padding: 40px 0;
+  position: relative;
+  margin-bottom: -20px;
+  overflow: hidden;
+}
+
+.triangle-top {
+    position: absolute;
+    right: 0;
+    bottom: 36.5vh;
+    width: 8%;
+    height: 4vh;
+    background-color: white;
+    z-index: 2;
+    clip-path: polygon(
+      100% 0,
+      100% 100%,
+      0 0
+    );
+
+    @include mobile {
+      display: none;
+    }
+}
+  
+.triangle-bottom {
+    position: absolute;
+    left: 0;
+    bottom: 38.5vh;
+    width: 8%;
+    height: 4vh;
+    background-color: $background-gray;
+    z-index: 2;
+    clip-path: polygon(
+      0 0,
+      100% 100%,
+      0 100%
+    );
+
+    @include mobile {
+      display: none;
+    }
+}
+
+.footer-content {
+  position: relative;
+  z-index: 1;
+}
+
+.container {
+  @include container;
+}
+
+.title-container {
+  position: relative;
+  margin-bottom: 40px;
+  text-align: left;
+  
+  @include mobile {
+    margin-bottom: 30px;
+  }
+  
+  .logo {
+    position: absolute;
+    width: 152px;
+    height: 45px;
+    top: -40px;
+    right: 0;
+
+    @include laptop {
+      width: 120px;
+      height: 35px;
+      top: -45px;
+    }
+
+    @include tablet {
+      width: 100px;
+      height: 30px;
+      top: -40px;
+    }
+  }
+
+  .text-content {
+    max-width: 50%;
+
+    @include laptop {
+      max-width: 70%;
+    }
+
+    @include tablet {
+      max-width: 100%;
+    }
+  }
+
+  h2 {
+    @include text-style(36px, 500);
+    margin-bottom: 16px;
+    color: $text-dark;
+    text-align: left;
+
+    @include tablet {
+      font-size: 32px;
+    }
+
+    @include mobile {
+      font-size: 28px;
+    }
+    
+    strong {
+      font-weight: 600;
+    }
+  }
+  
+  .subtitle {
+    @include text-style(20px);
+    color: $text-gray;
+    margin-bottom: 32px;
+    text-align: left;
+
+    @include tablet {
+      font-size: 18px;
+      margin-bottom: 24px;
+    }
+
+    @include mobile {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @include laptop {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  @include mobile {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+.social-card {
+  cursor: pointer;
+  background-color: $card-color;
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.3s ease;
+
+  @include mobile {
+    padding: 20px;
+  }
+  
+  &:hover {
+    transform: translateY(-5px);
+  }
+  
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .icon-container {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .mobile-icon {
+      display: none;
+
+      @include tablet {
+        display: block;
+      }
+    }
+
+    .desktop-icon {
+      @include tablet {
+        display: none;
+      }
+    }
+  }
+  
+  h3 {
+    @include text-style(20px);
+    color: $text-light;
+    text-align: left;
+    margin: 0;
+    line-height: 1;
+
+    @include mobile {
+      font-size: 18px;
+    }
+  }
+  
+  .action-button {
+    background-color: transparent;
+    border: 1px solid $text-light;
+    border-radius: 100px;
+    padding: 8px 16px;
+    color: $text-light;
+    @include text-style(14px);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    transition: all 0.3s ease;
+    
+    .dot {
+      width: 4px;
+      height: 4px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      border-radius: 50%;
+      background-color: $text-light;
+      flex-shrink: 0;
+      margin-left: 0;
+      
+      &:before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: $text-light;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+      }
+
+      &:after {
+        content: "";
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        opacity: 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' stroke='%23FF6450' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' d='M5 12h14m-7-7l7 7-7 7'/%3E%3C/svg%3E");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        transform: scale(0);
+        transition: all 0.3s ease;
+      }
+    }
+
+    &:hover {
+      border-color: $accent-color;
+      
+      .dot {
+        width: 16px;
+        height: 16px;
+        background-color: $text-light;
+        margin-left: 4px;
+        
+        &:before {
+          transform: scale(0);
+        }
+        
+        &:after {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    }
+  }
+}

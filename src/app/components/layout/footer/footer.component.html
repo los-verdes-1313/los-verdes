@@ -1,0 +1,40 @@
+<section class="footer">
+    <div class="triangle-bottom"></div>
+    <div class="triangle-top"></div>
+
+    <div class="footer-content">
+      <div class="container">
+        <div class="title-container">
+          <img src="logo.png" alt="Logo Simple Apps" class="logo">
+          <div class="text-content">
+            <h2><strong>¿Tenés dudas?</strong></h2>
+            <p class="subtitle">Contactanos a nuestros canales</p>
+          </div>
+        </div>
+        
+        <div class="social-grid">
+          <div class="social-card" *ngFor="let link of socialLinks">
+            <div class="card-header">
+              <div class="icon-container">
+                <img 
+                  [src]="link.iconDesktop" 
+                  [alt]="link.name" 
+                  class="desktop-icon"
+                >
+                <img 
+                  [src]="link.iconMobile" 
+                  [alt]="link.name" 
+                  class="mobile-icon"
+                >
+              </div>
+              <h3>{{ link.name }}</h3>
+            </div>
+            <a [href]="link.url" target="_blank" rel="noopener noreferrer" class="action-button">
+              Ir allá
+              <div class="dot"></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>

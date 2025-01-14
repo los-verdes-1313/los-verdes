@@ -1,0 +1,49 @@
+<section class="solutions-section">
+  <div class="solutions-container">
+    <h2>
+      <span class="subtitle">Ideas</span>
+      <span class="title">que potencian</span>
+    </h2>
+
+    <div class="solutions-grid">
+      <div class="solution-card" *ngFor="let solution of solutions">
+        <div class="card-header">
+          <h3>{{ solution.title }}</h3>
+          <mat-icon>{{solution.icon}}</mat-icon>
+        </div>
+        
+        <p class="description">{{ solution.description }}</p>
+        
+        <div class="benefits">
+          <h4>Beneficios</h4>
+          <div class="benefits-tags">
+            <span class="benefit-tag" *ngFor="let benefit of solution.benefits">
+              {{ benefit }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="process-section">
+    <div class="process-container">
+      <h2>
+       Entonces, ¿cómo seguimos?
+      </h2>
+
+      <div class="steps-container">
+        <div class="step" *ngFor="let step of steps; let last = last">
+          <div class="step-icon">
+            <mat-icon>{{step.icon}}</mat-icon>
+          </div>
+          
+          <div class="step-content">
+            <h3>{{step.title}}</h3>
+            <p>{{step.description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

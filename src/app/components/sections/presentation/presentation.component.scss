@@ -1,0 +1,193 @@
+// Variables
+$primary-color: #092F70;
+$background-color: #e6e9f0;
+$text-color: #333333;
+$gradient: linear-gradient(90deg, #115AD6 0%, #FF6450 100%);
+$font-family: 'General Sans', sans-serif;
+
+// Mobile breakpoint
+@mixin mobile {
+  @media (max-width: 576px) {
+    @content;
+  }
+}
+
+// Main presentation section
+.presentation {
+  width: 100vw;
+  background-color: $background-color;
+  padding: 80px 0;
+  display: flex;
+  align-items: center;
+  margin-top: -120px;
+  height: 70vh;
+  position: relative;
+  overflow: hidden;
+  margin-left: calc(-1 * ((100vw - 100%) / 2));
+
+  @include mobile {
+    height: auto;
+    padding: 120px 0 40px;
+    margin-top: -80px;
+  }
+}
+
+// Triangle decorations
+.triangle-top {
+  position: absolute;
+  left: 0;
+  bottom: 0vh;
+  width: 8%;
+  height: 4vh;
+  background-color: white;
+  z-index: 2;
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+  
+  @include mobile {
+    display: none;
+  }
+}
+
+.triangle-bottom {
+  position: absolute;
+  right: -0.5%;
+  top: 74.9vh;
+  width: 8%;
+  height: 4vh;
+  background-color: $background-color;
+  z-index: 0;
+  clip-path: polygon(100% 0, 100% 100%, 0 0);
+  
+  @include mobile {
+    display: none;
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 120px;
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+  @include mobile {
+    padding: 0 20px;
+    flex-direction: column;
+    height: auto;
+  }
+}
+
+.image-container {
+  position: relative;
+  width: 45%;
+  margin-top: 52vh;
+  z-index: 2;
+
+  @include mobile {
+    width: 100%;
+    margin-top: 40px;
+    order: 2;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+.content {
+  position: absolute;
+  z-index: 2;
+  top: 70%;
+  left: 55%;
+  transform: translateY(-50%);
+
+  @include mobile {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    order: 1;
+  }
+}
+
+h1 {
+  font-family: $font-family;
+  font-size: 48px;
+  font-weight: 1;
+  line-height: 56px;
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+  color: $primary-color;
+
+  @include mobile {
+    font-size: 36px;
+    line-height: 44px;
+  }
+}
+
+.gradient-purple,
+.gradient-blue {
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 56px;
+  background: $gradient;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  @include mobile {
+    font-size: 36px;
+    line-height: 44px;
+  }
+}
+
+p {
+  font-family: $font-family;
+  font-size: 18px;
+  line-height: 1.5;
+  margin-bottom: 32px;
+  color: $text-color;
+  max-width: 540px;
+
+  @include mobile {
+    font-size: 16px;
+    max-width: 100%;
+  }
+}
+
+.cta-button {
+  width: 176px;
+  height: 48px;
+  background: #000000;
+  border: 1px solid $primary-color;
+  border-radius: 100px;
+  padding: 0 40px;
+  color: #FFFFFF;
+  font-family: $font-family;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  @include mobile {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .dot {
+    color: #FFFFFF;
+  }
+}

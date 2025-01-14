@@ -1,0 +1,37 @@
+<header>
+  <nav class="header-container">
+    <!-- Botón hamburguesa -->
+    <button class="menu-toggle" (click)="toggleMenu($event)" [class.active]="isMenuOpen">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- Menú mobile -->
+    <div class="mobile-menu" [class.open]="isMenuOpen">
+      <nav>
+        <a (click)="scrollToSection('presentation')">Sobre Simple Apps</a>
+        <a (click)="scrollToSection('why')">¿Por qué elegirnos?</a>
+        <a (click)="scrollToSection('ideas')">Ideas</a>
+        <a (click)="scrollToSection('faq')">Preguntas frecuentes</a>
+        <a (click)="scrollToSection('contact')">Contacto</a>
+      </nav>
+    </div>
+
+    <div class="logo-container">
+      <img src="logo.png" alt="Logo Simple Apps" class="logo">
+    </div>
+
+    <div class="nav-links">
+      <a (click)="scrollToSection('presentation')">Sobre Simple Apps</a>
+      <a (click)="scrollToSection('why')">¿Por qué elegirnos?</a>
+      <a (click)="scrollToSection('ideas')">Ideas</a>
+      <a (click)="scrollToSection('faq')">Preguntas frecuentes</a>
+    </div>
+
+    <button class="contact-btn" (click)="scrollToSection('contact')">
+      <span>Contacto</span>
+      <span class="dot"></span>
+    </button>
+  </nav>
+</header>
