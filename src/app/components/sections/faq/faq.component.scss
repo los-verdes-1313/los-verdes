@@ -21,7 +21,7 @@ $text-gray: #666666;
 
 // Transitions
 @mixin transition($property: all) {
-  transition: $property 0.3s ease;
+  transition: $property 0.7s ease;
 }
 
 // Common text styles
