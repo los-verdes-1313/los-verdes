@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  simpleapps-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    restart: always
+    volumes:
+      - ./assets:/usr/share/nginx/html/assets
+    networks:
+      - simpleapps-network
+
+networks:
+  simpleapps-network:
+    driver: bridge
