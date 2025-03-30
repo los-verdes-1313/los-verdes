@@ -255,6 +255,13 @@ $accent-color: #FF6450;
       object-fit: contain;
     }
 
+    // Específicamente para el ícono de Instagram
+    img[src*="Instagram"] {
+      width: 24px;
+      height: 24px;
+      filter: brightness(0) invert(1); // Hacer el ícono blanco
+    }
+
     .mobile-icon {
       display: none;
 
