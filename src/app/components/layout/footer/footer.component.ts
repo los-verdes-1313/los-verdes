@@ -32,7 +32,7 @@ export class FooterComponent {
       name: 'Instagram',
       iconDesktop: 'RRSS=Instagram, Dispositivo=Desktop.png',
       iconMobile: 'RRSS=Instagram, Dispositivo=Mobile.png',
-      url: 'https://www.instagram.com/simpleapps.com.ar/?utm_source=ig_web_button_share_sheet'
+      url: 'https://www.instagram.com/simpleapps.ig/?utm_source=ig_web_button_share_sheet'
     },
     {
       name: 'LinkedIn',
