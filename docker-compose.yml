@@ -6,10 +6,10 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:80"
+      - "80:80"
     restart: always
     volumes:
-      - ./assets:/usr/share/nginx/html/assets
+      - ./public:/usr/share/nginx/html/assets
     networks:
       - simpleapps-network
 

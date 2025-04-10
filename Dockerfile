@@ -22,6 +22,7 @@ FROM nginx:alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copiar los archivos de la aplicación construida
+# Update this line to point to the browser directory
 COPY --from=build /app/dist/landing-page/browser /usr/share/nginx/html
 
 # Exponer el puerto 80
