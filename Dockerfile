@@ -18,15 +18,18 @@ RUN npm run build
 # Etapa de producción
 FROM nginx:alpine
 
+# Crear directorio para certificados SSL
+RUN mkdir -p /etc/nginx/ssl
+
 # Copiar la configuración de nginx
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copiar los archivos de la aplicación construida
-# Update this line to point to the browser directory
 COPY --from=build /app/dist/landing-page/browser /usr/share/nginx/html
 
-# Exponer el puerto 80
+# Exponer los puertos 80 y 443
 EXPOSE 80
+EXPOSE 443
 
 # Iniciar nginx
 CMD ["nginx", "-g", "daemon off;"]
