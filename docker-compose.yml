@@ -8,7 +8,6 @@ services:
     ports:
       - "80:80"
       - "443:443"  # Exponer puerto HTTPS
-    restart: always
     volumes:
       - ./public:/usr/share/nginx/html/assets
       - ./ssl:/etc/nginx/ssl  # Montar certificados SSL
